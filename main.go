@@ -49,9 +49,13 @@ func getAlbum(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
-	router.GET("/albums", getAlbums)
-	router.GET("/albums/:id", getAlbum)
-	router.POST("/albums", postAlbums)
+
+	albumsRouterGroup := router.Group("/albums")
+	{
+		albumsRouterGroup.GET("/", getAlbums)
+		albumsRouterGroup.GET("/:id", getAlbum)
+		albumsRouterGroup.POST("/", postAlbums)
+	}
 
 	router.Run("localhost:8080")
 }
